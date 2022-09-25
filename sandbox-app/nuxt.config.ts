@@ -25,5 +25,10 @@ export default defineNuxtConfig({
       },
     },
     plugins: [eslintPlugin()],
+    server: {
+      watch: {
+        usePolling: true,
+      },
+    },
   },
 })

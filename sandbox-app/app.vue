@@ -12,4 +12,10 @@
   </main>
 </template>
 
-<style lang="scss"></style>
+<style lang="scss">
+  .main {
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+  }
+</style>
