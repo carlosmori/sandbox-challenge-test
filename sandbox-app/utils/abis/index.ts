@@ -1,1 +1,1 @@
-export * from "./doggies-abi";
+export * from './doggies-abi'

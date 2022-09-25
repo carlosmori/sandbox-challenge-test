@@ -1,20 +1,19 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
+  <div>
     <div>
-        <div>
-          Search Input
-          <button class="app-button app-button--primary">Test</button>
-        </div>
-        <div>
-            <NuxtPage />
-        </div>
+      Search Input
+      <button class="app-button app-button--primary">Test</button>
     </div>
+    <div>
+      <NuxtPage />
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
-.app-button {
+  .app-button {
     position: relative;
     display: inline-flex;
     cursor: pointer;
@@ -28,8 +27,8 @@
 
     // variant
     &--primary {
-        background-color: $primary;
-        color: #ffffff;
+      background-color: $primary;
+      color: #ffffff;
     }
-}
+  }
 </style>

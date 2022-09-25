@@ -1,2 +1,2 @@
 export const DOGGIES_SMART_CONTRACT_ADDRESS =
-  "0xc7df86762ba83f2a6197e1ff9bb40ae0f696b9e6";
+  '0xc7df86762ba83f2a6197e1ff9bb40ae0f696b9e6'
