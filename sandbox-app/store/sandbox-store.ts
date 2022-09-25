@@ -3,7 +3,6 @@ import { defineStore } from "pinia";
 import Web3 from "web3";
 import { DOGGIES_ABI } from "~~/utils/abis/doggies-abi";
 import { DOGGIES_SMART_CONTRACT_ADDRESS } from "~~/utils/constants";
-// Move this to another folder
 
 export const useSandboxStore = defineStore("sandbox", {
   state: () => ({

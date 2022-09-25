@@ -3,7 +3,6 @@ import { useSandboxStore } from '~~/store/sandbox-store';
 
   const route = useRoute()
   const store = useSandboxStore()
-  const currentDoggie = reactive(store.doggies.currentDoggie);
   if (!route.params.id) {
     console.log('Warning! Make sure user is authenticated!')
   }
