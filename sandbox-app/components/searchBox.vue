@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { Search } from '@element-plus/icons-vue'
   import { ElButton, ElInput, ElForm } from 'element-plus/dist/index.full.js'
-
+  import { randomIntFromInterval } from '../utils/functions'
   const labelPosition = ref('top')
 
   const formLabelAlign = reactive({
@@ -10,11 +10,15 @@
   const tokenId = ref('')
   const router = useRouter()
 
-  const redirect = () => {
-    console.log('enter')
-    router.push({
-      path: `/doggies/${tokenId.value}`,
-    })
+  const redirect = ({ random = false }) => {
+    let path = ''
+    if (random) {
+      const randomId = randomIntFromInterval(1, 10000)
+      path = `/doggies/${randomId}`
+    } else {
+      path = `/doggies/${tokenId.value}`
+    }
+    router.push({ path })
   }
 </script>
 <template>
@@ -43,20 +47,30 @@
         <label
           for="search"
           class="search-box__form__label search-box__form__label--small"
-          >Token Id</label
+          >Doggie Id</label
         >
         <el-input
           v-model="tokenId"
           class="search-box__form__input"
-          placeholder="Type something"
+          placeholder="Type Doggie Id"
           :prefix-icon="Search"
           type="number"
         />
         <el-button
           class="search-box__form__button search-box__form__button--color"
-          @click="redirect"
+          type="primary"
+          bg
+          @click="redirect({})"
         >
           Search
+        </el-button>
+        <br />
+        <el-button
+          class="search-box__form__button search-box__form__button--color"
+          type="warning"
+          @click="redirect({ random: true })"
+        >
+          Random Doggie
         </el-button>
       </el-form>
     </div>
