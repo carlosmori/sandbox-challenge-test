@@ -1,5 +1,6 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 import eslintPlugin from 'vite-plugin-eslint'
+import ElementPlus from 'unplugin-element-plus/vite'
 
 export default defineNuxtConfig({
   modules: ['@pinia/nuxt'],
@@ -7,6 +8,21 @@ export default defineNuxtConfig({
     ethMainnetRpc: process.env.ETH_MAINNET_PUBLIC_RPC,
   },
   // scss: ["~/assets/scss/main", "~/assets/scss/animations"],
+  build: {
+    transpile: ['element-plus/es'],
+  },
+  meta: {
+    title: 'ElementPlus + Nuxt3',
+    meta: [
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'ElementPlus + Nuxt3',
+      },
+    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  },
   head: {
     link: [
       {
@@ -24,11 +40,12 @@ export default defineNuxtConfig({
         },
       },
     },
-    plugins: [eslintPlugin()],
+    plugins: [eslintPlugin(), ElementPlus()],
     server: {
       watch: {
         usePolling: true,
       },
     },
   },
+  components: true,
 })

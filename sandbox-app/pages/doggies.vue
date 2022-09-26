@@ -13,6 +13,6 @@
 
 <style lang="scss" scoped>
   .container {
-    @include flexContainer(row, center, center);
+    @include flexContainer(column, center, center);
   }
 </style>

@@ -1,11 +1,14 @@
 <script setup lang="ts">
+  import 'element-plus/dist/index.css'
   import { useSandboxStore } from '~~/store/sandbox-store'
+
   const store = useSandboxStore()
   onBeforeMount(() => {
     store.initializeDoggiesContract()
     // store.initializeDoggiesContractInstance();
   })
 </script>
+
 <template>
   <main class="main">
     <NuxtPage />
@@ -14,7 +17,6 @@
 
 <style lang="scss">
   .main {
-    background-color: black;
     height: 100vh;
     width: 100vw;
   }

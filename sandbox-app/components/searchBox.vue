@@ -1,5 +1,21 @@
 <script setup lang="ts">
+  import { Search } from '@element-plus/icons-vue'
+  import { ElButton, ElInput, ElForm } from 'element-plus/dist/index.full.js'
+
+  const labelPosition = ref('top')
+
+  const formLabelAlign = reactive({
+    tokenId: 'top',
+  })
   const tokenId = ref('')
+  const router = useRouter()
+
+  const redirect = () => {
+    console.log('enter')
+    router.push({
+      path: `/doggies/${tokenId}`,
+    })
+  }
 </script>
 <template>
   <div class="search-box">
@@ -18,24 +34,37 @@
       </h2>
     </div>
     <div class="search-box__form">
-      <label
-        for="search"
-        class="search-box__form__label search-box__form__label--small"
-        >Token Id</label
+      <el-form
+        :label-position="labelPosition"
+        label-width="100px"
+        :model="formLabelAlign"
+        style="max-width: 460px"
       >
-      <input v-model="tokenId" class="search-box__form__input" type="text" />
-      {{ tokenId }}
-      <button class="search-box__form__button search-box__form__button--color">
-        Search
-      </button>
+        <label
+          for="search"
+          class="search-box__form__label search-box__form__label--small"
+          >Token Id</label
+        >
+        <el-input
+          v-model="tokenId"
+          class="search-box__form__input"
+          placeholder="Type something"
+          :prefix-icon="Search"
+          type="number"
+        />
+        <el-button
+          class="search-box__form__button search-box__form__button--color"
+          @click="redirect"
+        >
+          Search
+        </el-button>
+      </el-form>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
   .search-box {
-    color: $primary;
-    border: 1px solid white;
     width: 80%;
     margin-top: 10%;
 
@@ -69,15 +98,13 @@
       }
       &__input {
         width: 100%;
-        margin: 10px 0px;
+        margin: 5px 0px;
       }
       &__button {
         width: 100%;
         padding: 5px;
         margin: 10px 0px;
         &--color {
-          color: white;
-          background-color: $secondary;
         }
       }
     }

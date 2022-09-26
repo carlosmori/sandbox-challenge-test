@@ -12,7 +12,7 @@
 </script>
 <template>
   <div>
-    Doggie Child - {{ $route.params.id }}
+    Doggie Child - {{ route.params.id }}
     {{ store.doggies.currentDoggie.name }}
   </div>
 </template>
