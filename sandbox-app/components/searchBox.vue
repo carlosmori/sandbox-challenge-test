@@ -13,14 +13,14 @@
   const redirect = () => {
     console.log('enter')
     router.push({
-      path: `/doggies/${tokenId}`,
+      path: `/doggies/${tokenId.value}`,
     })
   }
 </script>
 <template>
   <div class="search-box">
     <div class="search-box__header">
-      <div class="search-box__header__img gradient-border">
+      <div class="search-box__header__img">
         <img
           class="gradient-border"
           src="https://contracts.sandbox.game/snoopdogg/1.jpg"
