@@ -66,7 +66,7 @@
 <style lang="scss" scoped>
   .search-box {
     width: 80%;
-    margin-top: 10%;
+    margin-top: 5%;
 
     &__header {
       margin: 0 1rem;
@@ -75,6 +75,7 @@
         text-align: center;
         &--base {
           font-size: 0.75rem;
+          margin: 10px 0px;
         }
       }
       &__img {

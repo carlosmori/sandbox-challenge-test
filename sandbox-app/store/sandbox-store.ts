@@ -21,11 +21,24 @@ export const useSandboxStore = defineStore('sandbox', {
       )
     },
     async setCurrentDoggie(id) {
-      const url = await this.doggies.doggiesContractInstance.methods
-        .tokenURI(id)
-        .call()
-      const { data } = await axios.get(url)
-      this.doggies.currentDoggie = data
+      if (this.doggies.doggiesContractInstance) {
+        const url = await this.doggies.doggiesContractInstance.methods
+          .tokenURI(id)
+          .call()
+        const owner = await this.doggies.doggiesContractInstance.methods
+          .ownerOf(id)
+          .call()
+        console.log(`owner equals:`)
+        console.log(owner)
+        const { data } = await axios.get(url)
+        this.doggies.currentDoggie = {
+          ...data,
+          attributes: data.attributes.map((el) =>
+            el.value === '' ? { ...el, value: 'Not specified' } : el
+          ),
+          owner,
+        }
+      }
     },
   },
   getters: {
