@@ -23,20 +23,7 @@
 </script>
 <template>
   <div class="search-box">
-    <div class="search-box__header">
-      <div class="search-box__header__img">
-        <img
-          class="gradient-border"
-          src="https://contracts.sandbox.game/snoopdogg/1.jpg"
-          alt=""
-          width="150"
-        />
-      </div>
-
-      <h2 class="search-box__header__title search-box__header__title--base">
-        The Doggies Explorer
-      </h2>
-    </div>
+    <div class="search-box__header"></div>
     <div class="search-box__form">
       <el-form
         :label-position="labelPosition"
@@ -79,29 +66,16 @@
 
 <style lang="scss" scoped>
   .search-box {
+    z-index: 1;
     width: 80%;
     margin-top: 5%;
 
     &__header {
       margin: 0 1rem;
       @include flexContainer(column, center, center);
-      &__title {
-        text-align: center;
-        &--base {
-          font-size: 0.75rem;
-          margin: 10px 0px;
-        }
-      }
-      &__img {
-        img {
-          border-radius: 50%;
-          //   box-shadow: 0px 0px 50px #8f8f8f8f;
-        }
-      }
     }
     &__form {
       margin: 0 1rem;
-      border: 1px solid white;
       @include flexContainer(column, center, center);
       &__label {
         width: 100%;
@@ -119,20 +93,6 @@
         width: 100%;
         padding: 5px;
         margin: 10px 0px;
-        &--color {
-        }
-      }
-    }
-
-    @keyframes gradient {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
       }
     }
   }
