@@ -1,13 +1,17 @@
 <script setup lang="ts">
   import SearchBox from '~~/components/searchBox.vue'
-  import Stars from '~~/components/stars.vue'
+  import { useSandboxStore } from '~~/store/sandbox-store'
+
+  const store = useSandboxStore()
 
   const previousPaths = [{ route: '/', label: 'Home' }]
+  onMounted(async () => {
+    await store.setCurrentDoggie(null)
+  })
 </script>
 
 <template>
   <div>
-    <!-- <Stars :small-stars="150" :medium-stars="50" :big-stars="10" /> -->
     <div class="container">
       <BreadCrumb current-path="Doggies" :previous-paths="previousPaths" />
       <img src="/the-sandbox-logo.svg" alt="sandbox-logo" width="350" />
@@ -19,14 +23,15 @@
 
 <style lang="scss" scoped>
   .container {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
     @include flexContainer(column, center, center);
     z-index: 10;
     img {
       @include floating-animation-mixin('float');
       animation: float 3s ease-in-out infinite;
-      position: absolute;
-      top: 20%;
       -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
       filter: invert(100%);
     }

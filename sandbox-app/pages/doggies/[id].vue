@@ -2,7 +2,6 @@
   import { useSandboxStore } from '~~/store/sandbox-store'
   import { ElTable, ElTableColumn } from 'element-plus/dist/index.full.js'
   import BreadCrumb from '~~/components/breadCrumb.vue'
-  import Stars from '~~/components/stars.vue'
 
   const route = useRoute()
   const store = useSandboxStore()
@@ -19,22 +18,7 @@
 </script>
 <template>
   <div>
-    <Stars :small-stars="150" :medium-stars="50" :big-stars="10" />
-
     <div class="detail">
-      <!-- <div class="detail__breadcrumbs">
-        <el-breadcrumb separator="/">
-          <el-breadcrumb-item>
-            <NuxtLink to="/"> Home </NuxtLink>
-          </el-breadcrumb-item>
-          <el-breadcrumb-item>
-            <NuxtLink to="/doggies"> Doggies </NuxtLink>
-          </el-breadcrumb-item>
-          <el-breadcrumb-item>
-            <span>{{ route.params.id }}</span>
-          </el-breadcrumb-item>
-        </el-breadcrumb>
-      </div> -->
       <BreadCrumb
         :current-path="route.params.id"
         :previous-paths="previousPaths"
@@ -54,7 +38,9 @@
       </div>
       <div class="detail__sub-block">
         <h5 class="detail__sub-block__label">Description:</h5>
-        <span class="detail__sub-block__value">
+        <span
+          class="detail__sub-block__value detail__sub-block__value--shorter"
+        >
           {{ store.doggies.currentDoggie.description }}
         </span>
       </div>
@@ -64,7 +50,6 @@
           <el-table
             :data="store.doggies.currentDoggie.attributes"
             stripe
-            height="250"
             class="detail__sub-block__value__table"
           >
             <el-table-column prop="trait_type" label="Type" width="180" />
@@ -78,23 +63,11 @@
 
 <style lang="scss" scoped>
   .detail {
-    width: 80%;
-    min-height: 100vh;
+    width: 100%;
     text-align: center;
     margin: 0 auto;
     z-index: 1;
-    @include flexContainer(column, center, center);
-    width: 80%;
-    min-height: 100vh;
-    text-align: center;
-    @include flexContainer(column, center, center);
-    &__breadcrumbs {
-      align-self: baseline;
-      a,
-      span {
-        color: white;
-      }
-    }
+    // @include flexContainer(column, flex-start, center);
     &__img {
       border-radius: 50%;
       @include floating-animation-mixin('float');
@@ -119,12 +92,23 @@
       }
       &__value {
         display: inline-block;
-        font-size: 0.5rem;
+        font-size: 0.4rem;
+        width: 70%;
+        &--shorter {
+          @include mq('tablet-wide') {
+            width: 50%;
+          }
+        }
         margin: 0;
         text-overflow: ellipsis;
         max-width: 100%;
         &__table {
+          font-size: 0.4rem;
+          @include mq('tablet-wide') {
+            font-size: 0.5rem;
+          }
           width: 100%;
+          height: 200px;
         }
       }
     }

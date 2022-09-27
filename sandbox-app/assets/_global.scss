@@ -1,11 +1,26 @@
+@use 'element-plus/dist/index.css';
 :root {
   font-size: xx-large;
   font-family: 'Kanit', sans-serif;
+  --el-table-border-color: black;
+  --el-table-tr-bg-color: black;
+  --el-table-header-bg-color: black;
+  --el-bg-color: black;
+  --el-fill-color-blank: black;
+  --el-fill-color-lighter: black;
+  --el-text-color-secondary: white;
+  --el-text-color-regular: white;
+  --el-table-row-hover-bg-color: black;
+  --el-fill-color-light: rgba(0, 0, 0, 0.381);
 }
-body {
+body,
+html {
   margin: 0;
+  padding: 0;
 }
-
+* {
+  box-sizing: border-box;
+}
 * {
   // border: 1px dashed rgba(255, 0, 0, 0.257);
 }

@@ -21,7 +21,7 @@ export const useSandboxStore = defineStore('sandbox', {
       )
     },
     async setCurrentDoggie(id) {
-      if (this.doggies.doggiesContractInstance) {
+      if (this.doggies.doggiesContractInstance && id) {
         const url = await this.doggies.doggiesContractInstance.methods
           .tokenURI(id)
           .call()
@@ -38,6 +38,8 @@ export const useSandboxStore = defineStore('sandbox', {
           ),
           owner,
         }
+      } else {
+        this.doggies.currentDoggie = {}
       }
     },
   },

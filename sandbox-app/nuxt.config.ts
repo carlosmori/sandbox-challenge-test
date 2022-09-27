@@ -10,6 +10,19 @@ export default defineNuxtConfig({
   build: {
     transpile: ['element-plus/es'],
   },
+  head: {
+    title: 'gfg',
+    htmlAttrs: {
+      lang: 'en',
+    },
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: '' },
+      { name: 'format-detection', content: 'telephone=no' },
+    ],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+  },
   vite: {
     css: {
       preprocessorOptions: {
@@ -19,7 +32,7 @@ export default defineNuxtConfig({
         },
       },
     },
-    plugins: [eslintPlugin(), ElementPlus()],
+    plugins: [ElementPlus({ useSource: true })],
     server: {
       watch: {
         usePolling: true,

@@ -9,16 +9,22 @@
   })
   const tokenId = ref('')
   const router = useRouter()
+  const errors = ref([])
 
   const redirect = ({ random = false }) => {
-    let path = ''
     if (random) {
       const randomId = randomIntFromInterval(1, 10000)
-      path = `/doggies/${randomId}`
+      router.push({ path: `/doggies/${randomId}` })
     } else {
-      path = `/doggies/${tokenId.value}`
+      errors.value = []
+      if (!tokenId.value) {
+        errors.value.push('Type a Doggie Id')
+      } else if (+tokenId.value > 10000 || +tokenId.value === 0) {
+        errors.value.push('Id must be between 1-10.000')
+      } else {
+        router.push({ path: `/doggies/${tokenId.value}` })
+      }
     }
-    router.push({ path })
   }
 </script>
 <template>
@@ -43,6 +49,15 @@
           :prefix-icon="Search"
           type="number"
         />
+        <div
+          :class="{ invisible: !errors.length }"
+          class="search-box__form__input__errors"
+        >
+          <ul class="search-box__form__input__values">
+            <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
+          </ul>
+        </div>
+
         <el-button
           class="search-box__form__button search-box__form__button--color"
           type="primary"
@@ -65,6 +80,9 @@
 </template>
 
 <style lang="scss" scoped>
+  .invisible {
+    visibility: hidden;
+  }
   .search-box {
     z-index: 1;
     width: 80%;
@@ -88,6 +106,17 @@
       &__input {
         width: 100%;
         margin: 5px 0px;
+        &__errors {
+          font-size: 0.5rem;
+          color: red;
+          padding-bottom: 50px;
+          position: relative;
+        }
+        &__values {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+        }
       }
       &__button {
         width: 100%;
