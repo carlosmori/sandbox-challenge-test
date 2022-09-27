@@ -47,7 +47,7 @@
           width="150"
           @load="onImgLoaded"
         />
-        <div v-if="imgLoading" style="height: 150px"></div>
+        <div v-if="imgLoading" class="detail__img__placeholder"></div>
         <div class="detail__sub-block">
           <h5 class="detail__sub-block__label">Owner:</h5>
           <p class="detail__sub-block__value">
@@ -120,6 +120,13 @@
       @include floating-animation-mixin('float');
       animation: float 3s ease-in-out infinite;
     }
+    &__img__placeholder {
+      height: 150px;
+      width: 150px;
+      background-color: gray;
+      margin: 0 auto;
+      border-radius: 50%;
+    }
     &__title {
       font-size: 1rem;
       margin: 20px 0px;
@@ -140,11 +147,12 @@
       &__value {
         display: inline-block;
         font-size: 0.4rem;
-        width: 70%;
+        width: auto;
+        @include mq('tablet-wide') {
+          width: auto;
+        }
         &--shorter {
-          @include mq('tablet-wide') {
-            width: 50%;
-          }
+          width: 50%;
         }
         margin: 0;
         text-overflow: ellipsis;

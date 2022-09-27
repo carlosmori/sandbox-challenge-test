@@ -96,11 +96,13 @@
   </div>
 </template>
 
-<style>
+<style lang="scss">
   .stars {
     position: absolute;
-    height: 100%;
-    width: 100%;
+    height: 95%;
+    width: 95%;
     z-index: 0;
+    @include floating-animation-mixin('float');
+    animation: float 3s ease-in-out infinite;
   }
 </style>

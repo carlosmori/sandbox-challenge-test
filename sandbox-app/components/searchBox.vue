@@ -106,11 +106,15 @@
       &__input {
         width: 100%;
         margin: 5px 0px;
+        padding-bottom: 40px;
         &__errors {
-          font-size: 0.5rem;
+          font-size: 0.4rem;
           color: red;
-          padding-bottom: 50px;
           position: relative;
+          ul {
+            padding-left: 0px;
+            list-style: none;
+          }
         }
         &__values {
           position: absolute;
