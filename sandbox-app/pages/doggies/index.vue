@@ -23,6 +23,8 @@
     @include flexContainer(column, center, center);
     z-index: 10;
     img {
+      @include floating-animation-mixin('float');
+      animation: float 3s ease-in-out infinite;
       position: absolute;
       top: 20%;
       -webkit-filter: invert(100%); /* safari 6.0 - 9.0 */
@@ -31,12 +33,12 @@
     &__title {
       font-size: 1rem;
       margin: 10px 0px;
-      background-image: url(/gifs/fusion.gif);
+      color: transparent;
+      color: white;
+      // background-image: url(/gifs/fusion.gif);
       background-clip: text;
       -webkit-background-clip: text;
-      color: transparent;
       background-position: center;
-      font-family: Roboto, sans-serif;
     }
   }
 </style>

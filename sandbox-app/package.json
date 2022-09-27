@@ -9,6 +9,7 @@
     "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore ."
   },
   "devDependencies": {
+    "@nuxtjs/google-fonts": "^3.0.0-0",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "@vitejs/plugin-vue": "^1.2.4",

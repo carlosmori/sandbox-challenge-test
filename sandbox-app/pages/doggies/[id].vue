@@ -97,6 +97,8 @@
     }
     &__img {
       border-radius: 50%;
+      @include floating-animation-mixin('float');
+      animation: float 3s ease-in-out infinite;
     }
     &__title {
       font-size: 1rem;

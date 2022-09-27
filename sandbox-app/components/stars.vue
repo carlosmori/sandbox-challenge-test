@@ -77,7 +77,6 @@
         left: `${smallStar.left}%`,
         width: smallStar.width,
         height: smallStar.height,
-        boxShadow: '0px 0px 20px 2px white',
       }"
     ></div>
     <div
@@ -86,7 +85,6 @@
       :style="{
         backgroundColor: 'white',
         borderRadius: '50%',
-        boxShadow: '0px 0px 20px 2px white',
         filter: 'brightness(95%)',
         position: 'absolute',
         top: `${smallStar.top}%`,
