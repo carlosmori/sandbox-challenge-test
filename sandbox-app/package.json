@@ -6,7 +6,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore ."
+    "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
+    "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
     "@nuxtjs/google-fonts": "^3.0.0-0",
