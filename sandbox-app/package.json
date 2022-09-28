@@ -7,6 +7,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint:script": "eslint --ext .ts,vue --ignore-path .gitignore .",
+    "heroku-postbuild": "npm run build",
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
