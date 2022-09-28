@@ -14,7 +14,7 @@
   const redirect = ({ random = false }) => {
     if (random) {
       const randomId = randomIntFromInterval(1, 10000)
-      router.push({ path: `/doggies/${randomId}` })
+      router.push({ path: `/${randomId}` })
     } else {
       errors.value = []
       if (!tokenId.value) {
@@ -22,7 +22,7 @@
       } else if (+tokenId.value > 10000 || +tokenId.value === 0) {
         errors.value.push('Id must be between 1-10.000')
       } else {
-        router.push({ path: `/doggies/${tokenId.value}` })
+        router.push({ path: `/${tokenId.value}` })
       }
     }
   }

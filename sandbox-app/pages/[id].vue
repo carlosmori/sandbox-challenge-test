@@ -7,11 +7,8 @@
     ElSkeleton,
   } from 'element-plus/dist/index.full.js'
   import BreadCrumb from '~~/components/breadCrumb.vue'
-
   const route = useRoute()
   const store = useSandboxStore()
-  if (!route.params.id) {
-  }
   const loading = ref(false)
   const imgLoading = ref(true)
   const setCurrentDoggie = async () => {
@@ -19,15 +16,11 @@
     await store.setCurrentDoggie(route.params.id)
     loading.value = false
   }
-  const previousPaths = [
-    { route: '/', label: 'Home' },
-    { route: '/doggies', label: 'Doggies' },
-  ]
-  onMounted(setCurrentDoggie())
+  const previousPaths = [{ route: '/', label: 'Home' }]
   const onImgLoaded = () => {
-    console.log('enter')
     imgLoading.value = false
   }
+  onMounted(setCurrentDoggie())
 </script>
 <template>
   <div class="detail__container">
@@ -38,20 +31,25 @@
           :previous-paths="previousPaths"
         />
 
-        <h3 class="detail__title">{{ store.doggies.currentDoggie.name }}</h3>
-        <img
-          v-show="!imgLoading"
-          class="detail__img"
-          :src="store.doggies.currentDoggie.image_url"
-          alt="doggie_image"
-          width="150"
-          @load="onImgLoaded"
-        />
-        <div v-if="imgLoading" class="detail__img__placeholder"></div>
+        <h3 class="detail__title">{{ store.getCurrentDoggie?.name }}</h3>
+        <div class="detail__img-wrapper">
+          <img
+            v-show="!imgLoading"
+            class="detail__img-wrapper__image"
+            :src="store.getCurrentDoggie?.image_url"
+            alt="doggie_image"
+            width="150"
+            @load="onImgLoaded"
+          />
+          <div
+            v-if="imgLoading"
+            class="detail__img-wrapper__image__placeholder"
+          ></div>
+        </div>
         <div class="detail__sub-block">
           <h5 class="detail__sub-block__label">Owner:</h5>
           <p class="detail__sub-block__value">
-            {{ store.doggies.currentDoggie.owner }}
+            {{ store.getCurrentDoggie?.owner }}
           </p>
         </div>
         <div class="detail__sub-block">
@@ -59,14 +57,14 @@
           <span
             class="detail__sub-block__value detail__sub-block__value--shorter"
           >
-            {{ store.doggies.currentDoggie.description }}
+            {{ store.getCurrentDoggie?.description }}
           </span>
         </div>
         <div class="detail__sub-block">
           <h5 class="detail__sub-block__label">Traits:</h5>
           <span class="detail__sub-block__value">
             <el-table
-              :data="store.doggies.currentDoggie.attributes"
+              :data="store.getCurrentDoggie?.attributes"
               stripe
               class="detail__sub-block__value__table"
             >
@@ -115,17 +113,30 @@
     margin: 0 auto;
     z-index: 1;
     // @include flexContainer(column, flex-start, center);
-    &__img {
-      border-radius: 50%;
-      @include floating-animation-mixin('float');
-      animation: float 3s ease-in-out infinite;
-    }
-    &__img__placeholder {
-      height: 150px;
-      width: 150px;
-      background-color: gray;
+    &__img-wrapper {
+      height: 160px;
+      width: 160px;
       margin: 0 auto;
       border-radius: 50%;
+      position: relative;
+      background-image: url(/gifs/fusion.gif);
+      color: transparent;
+      background-position: center;
+      @include floating-animation-mixin('float');
+      animation: float 3s ease-in-out infinite;
+      &__image {
+        border-radius: 50%;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+      }
+      &__image__placeholder {
+        height: 150px;
+        width: 150px;
+        background-color: gray;
+        margin: 0 auto;
+        border-radius: 50%;
+      }
     }
     &__title {
       font-size: 1rem;
