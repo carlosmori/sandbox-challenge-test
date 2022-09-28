@@ -124,7 +124,8 @@
         background-image: url(/gifs/fusion.gif);
         color: transparent;
         background-position: center;
-        &__image {
+        &__image,
+        &__image__placeholder {
           border-radius: 50%;
           position: absolute;
           top: 5px;
@@ -135,7 +136,6 @@
           width: 150px;
           background-color: gray;
           margin: 0 auto;
-          border-radius: 50%;
         }
       }
       &__title {

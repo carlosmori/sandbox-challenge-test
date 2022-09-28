@@ -45,6 +45,7 @@
           >Doggie Id</label
         >
         <el-input
+          id="search-input"
           v-model="tokenId"
           class="search-box__form__input"
           placeholder="Type Doggie Id"
@@ -55,12 +56,13 @@
           :class="{ invisible: !errors.length }"
           class="search-box__form__input__errors"
         >
-          <ul class="search-box__form__input__errors__values">
+          <ul id="error-list" class="search-box__form__input__errors__values">
             <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
           </ul>
         </div>
 
         <el-button
+          id="search-button"
           class="search-box__form__button"
           type="primary"
           bg
@@ -70,6 +72,7 @@
         </el-button>
         <br />
         <el-button
+          id="random-button"
           class="search-box__form__button"
           type="success"
           @click="redirect({ random: true })"
