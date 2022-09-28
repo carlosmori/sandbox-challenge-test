@@ -8,6 +8,12 @@ Check: https://opensea.io/collection/snoop-dogg-doggies
 
 A user can type a Doggie Id and get information about that NFT (name, picture, ownership).
 
+You can check the app deployed at:
+
+https://sandbox-app-doggies.herokuapp.com/
+
+> It might take a while to load due to being a free tier domain
+
 ## Tech Stack
 
 The application has been built using:
