@@ -1,28 +1,23 @@
+<!-- eslint-disable vue/require-default-prop -->
 <script lang="ts" setup>
+  import { randomIntFromInterval } from '~~/utils/functions'
+
   const props = defineProps({
     smallStars: Number,
     mediumStars: Number,
     bigStars: Number,
   })
-  const randomIntFromInterval = () => {
-    const precision = 100 // 2 decimals
-    const randomnum =
-      Math.floor(
-        Math.random() * (100 * precision - 1 * precision) + 1 * precision
-      ) /
-      (1 * precision)
+  // todo move this to utils, merging it with the other function
 
-    // min and max included
-    return randomnum
-  }
-  console.log(`props equals:`)
-  console.log(props)
+  const minValue = 1
+  const maxValue = 100
+  const precision = 100
   let smallStarsArray = Array(props.smallStars)
     .fill({})
     .map(() => {
       return {
-        top: randomIntFromInterval(),
-        left: randomIntFromInterval(),
+        top: randomIntFromInterval({ minValue, maxValue, precision }),
+        left: randomIntFromInterval({ minValue, maxValue, precision }),
         width: '1px',
         height: '1px',
       }
@@ -31,8 +26,8 @@
     .fill({})
     .map(() => {
       return {
-        top: randomIntFromInterval(),
-        left: randomIntFromInterval(),
+        top: randomIntFromInterval({ minValue, maxValue, precision }),
+        left: randomIntFromInterval({ minValue, maxValue, precision }),
         width: '2px',
         height: '2px',
       }
@@ -41,8 +36,8 @@
     .fill({})
     .map(() => {
       return {
-        top: randomIntFromInterval(),
-        left: randomIntFromInterval(),
+        top: randomIntFromInterval({ minValue, maxValue, precision }),
+        left: randomIntFromInterval({ minValue, maxValue, precision }),
         width: '4px',
         height: '4px',
       }
@@ -54,11 +49,8 @@
     <div
       v-for="(smallStar, index) in smallStarsArray"
       :key="index"
+      class="stars stars__element"
       :style="{
-        backgroundColor: 'white',
-        borderRadius: '50%',
-        filter: 'brightness(95%)',
-        position: 'absolute',
         top: `${smallStar.top}%`,
         left: `${smallStar.left}%`,
         width: smallStar.width,
@@ -68,11 +60,8 @@
     <div
       v-for="(smallStar, index) in mediumStarsArray"
       :key="index"
+      class="stars stars__element"
       :style="{
-        backgroundColor: 'white',
-        borderRadius: '50%',
-        filter: 'brightness(95%)',
-        position: 'absolute',
         top: `${smallStar.top}%`,
         left: `${smallStar.left}%`,
         width: smallStar.width,
@@ -82,11 +71,8 @@
     <div
       v-for="(smallStar, index) in bigStarsArray"
       :key="index"
+      class="stars stars__element"
       :style="{
-        backgroundColor: 'white',
-        borderRadius: '50%',
-        filter: 'brightness(95%)',
-        position: 'absolute',
         top: `${smallStar.top}%`,
         left: `${smallStar.left}%`,
         width: smallStar.width,
@@ -98,11 +84,17 @@
 
 <style lang="scss">
   .stars {
+    @include floating-animation-mixin('float');
+    animation: float 3s ease-in-out infinite;
     position: absolute;
     height: 95%;
     width: 95%;
     z-index: 0;
-    @include floating-animation-mixin('float');
-    animation: float 3s ease-in-out infinite;
+    &__element {
+      background-color: white;
+      border-radius: 50%;
+      filter: brightness(95%);
+      position: absolute;
+    }
   }
 </style>

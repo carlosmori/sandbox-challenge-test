@@ -13,7 +13,10 @@
 
   const redirect = ({ random = false }) => {
     if (random) {
-      const randomId = randomIntFromInterval(1, 10000)
+      const minValue = 1
+      const maxValue = 10000
+      const precision = 1
+      const randomId = randomIntFromInterval({ minValue, maxValue, precision })
       router.push({ path: `/${randomId}` })
     } else {
       errors.value = []
@@ -29,7 +32,6 @@
 </script>
 <template>
   <div class="search-box">
-    <div class="search-box__header"></div>
     <div class="search-box__form">
       <el-form
         :label-position="labelPosition"
@@ -53,13 +55,13 @@
           :class="{ invisible: !errors.length }"
           class="search-box__form__input__errors"
         >
-          <ul class="search-box__form__input__values">
+          <ul class="search-box__form__input__errors__values">
             <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
           </ul>
         </div>
 
         <el-button
-          class="search-box__form__button search-box__form__button--color"
+          class="search-box__form__button"
           type="primary"
           bg
           @click="redirect({})"
@@ -68,8 +70,8 @@
         </el-button>
         <br />
         <el-button
-          class="search-box__form__button search-box__form__button--color"
-          type="warning"
+          class="search-box__form__button"
+          type="success"
           @click="redirect({ random: true })"
         >
           Random Doggie
@@ -111,15 +113,13 @@
           font-size: 0.4rem;
           color: red;
           position: relative;
-          ul {
+          &__values {
             padding-left: 0px;
             list-style: none;
+            position: absolute;
+            bottom: 0;
+            left: 0;
           }
-        }
-        &__values {
-          position: absolute;
-          bottom: 0;
-          left: 0;
         }
       }
       &__button {

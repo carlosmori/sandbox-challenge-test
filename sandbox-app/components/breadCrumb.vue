@@ -16,7 +16,7 @@
         <NuxtLink :to="item.route"> {{ item.label }} </NuxtLink>
       </el-breadcrumb-item>
       <el-breadcrumb-item>
-        <span>{{ props.currentPath }}</span>
+        <span class="breadcrumbs__current">{{ props.currentPath }}</span>
       </el-breadcrumb-item>
     </el-breadcrumb>
   </div>
@@ -24,12 +24,19 @@
 
 <style lang="scss" scoped>
   .breadcrumbs {
+    &--white {
+      color: white;
+    }
     position: absolute;
     top: 20px;
     left: 20px;
-    a,
-    span {
+    // Override NuxLink a tag
+    a {
       color: white;
+    }
+    &__current {
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
   }
 </style>
