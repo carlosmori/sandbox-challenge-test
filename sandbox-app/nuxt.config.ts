@@ -10,6 +10,16 @@ export default defineNuxtConfig({
   build: {
     transpile: ['element-plus/es'],
   },
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      if (nitroConfig.dev) {
+        return
+      }
+      for (let index = 1; index < 3; index++) {
+        nitroConfig.prerender.routes.push(`/${index}`)
+      }
+    },
+  },
   head: {
     title: 'gfg',
     htmlAttrs: {
@@ -48,4 +58,5 @@ export default defineNuxtConfig({
     },
     overwriting: true, // this flag
   },
+  target: 'static',
 })

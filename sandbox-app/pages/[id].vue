@@ -7,96 +7,97 @@
     ElSkeleton,
   } from 'element-plus/dist/index.full.js'
   import BreadCrumb from '~~/components/breadCrumb.vue'
+  import { DOGGIES_ABI } from '~~/utils/abis'
+  import { DOGGIES_SMART_CONTRACT_ADDRESS } from '~~/utils/constants'
+  import Web3 from 'web3'
+  import axios from 'axios'
+
   const route = useRoute()
-  const store = useSandboxStore()
   const loading = ref(false)
-  const imgLoading = ref(true)
-  const setCurrentDoggie = async () => {
-    loading.value = true
-    await store.setCurrentDoggie(route.params.id)
-    loading.value = false
-  }
+
   const previousPaths = [{ route: '/', label: 'Home' }]
   const onImgLoaded = () => {
     imgLoading.value = false
   }
-  onMounted(setCurrentDoggie())
+  const { data: doggie } = await useAsyncData(
+    route.params.id,
+    async ({ params, error, payload }) => {
+      console.log('enter')
+      loading.value = true
+      const w3 = new Web3('https://rpc.ankr.com/eth')
+      const contract = new w3.eth.Contract(
+        DOGGIES_ABI,
+        DOGGIES_SMART_CONTRACT_ADDRESS
+      )
+      const doggieId = route.params.id
+      const url = await contract.methods.tokenURI(doggieId).call()
+      const owner = await contract.methods.ownerOf(doggieId).call()
+      const data = await axios.get(url)
+      let doggie = data.data
+      doggie = {
+        ...doggie,
+        attributes: doggie.attributes.map((trait) =>
+          trait.value === '' ? { ...trait, value: 'Not specified' } : trait
+        ),
+        owner,
+      }
+      loading.value = false
+      return doggie
+    }
+  )
 </script>
 <template>
   <div class="detail">
-    <div v-if="!loading">
-      <div class="detail__container">
-        <BreadCrumb
-          :current-path="route.params.id"
-          :previous-paths="previousPaths"
-        />
+    <div class="detail__container">
+      <BreadCrumb
+        :current-path="route.params.id"
+        :previous-paths="previousPaths"
+      />
 
-        <h3 class="detail__container__title">
-          {{ store.getCurrentDoggie?.name }}
-        </h3>
-        <div class="detail__container__img-wrapper">
-          <img
-            v-show="!imgLoading"
-            class="detail__container__img-wrapper__image"
-            :src="store.getCurrentDoggie?.image_url"
-            alt="doggie_image"
-            width="150"
-            @load="onImgLoaded"
-          />
-          <div
-            v-if="imgLoading"
-            class="detail__container__img-wrapper__image__placeholder"
-          ></div>
-        </div>
-        <div class="detail__container__sub-block">
-          <h5 class="detail__container__sub-block__label">Owner:</h5>
-          <p class="detail__container__sub-block__value">
-            {{ store.getCurrentDoggie?.owner }}
-          </p>
-        </div>
-        <div class="detail__container__sub-block">
-          <h5 class="detail__container__sub-block__label">Description:</h5>
-          <span
-            class="detail__container__sub-block__value detail__container__sub-block__value--shorter"
-          >
-            {{ store.getCurrentDoggie?.description }}
-          </span>
-        </div>
-        <div class="detail__container__sub-block">
-          <h5 class="detail__container__sub-block__label">Traits:</h5>
-          <span class="detail__container__sub-block__value">
-            <el-table
-              :data="store.getCurrentDoggie?.attributes"
-              stripe
-              class="detail__container__sub-block__value__table"
-            >
-              <el-table-column prop="trait_type" label="Type" width="160" />
-              <el-table-column prop="value" label="Name" width="160" />
-            </el-table>
-          </span>
-        </div>
+      <h3 class="detail__container__title">
+        {{ doggie.name }}
+      </h3>
+      <div class="detail__container__img-wrapper">
+        <img
+          v-show="!imgLoading"
+          class="detail__container__img-wrapper__image"
+          :src="doggie.image_url"
+          alt="doggie_image"
+          width="150"
+          @load="onImgLoaded"
+        />
+        <div
+          v-if="imgLoading"
+          class="detail__container__img-wrapper__image__placeholder"
+        ></div>
       </div>
-    </div>
-    <div v-else class="skeleton">
-      <el-skeleton
-        :count="1"
-        animated
-        style="
-          --el-skeleton-circle-size: 150px;
-          --el-skeleton-color: #444444;
-          --el-skeleton-to-color: #9a9a9a;
-        "
-      >
-        <template #template>
-          <div class="skeleton__template">
-            <el-skeleton-item variant="circle" />
-            <el-skeleton-item variant="text" />
-            <el-skeleton-item variant="text" />
-            <el-skeleton-item variant="text" />
-            <el-skeleton-item variant="text" />
-          </div>
-        </template>
-      </el-skeleton>
+      <div class="detail__container__sub-block">
+        <h5 class="detail__container__sub-block__label">Owner:</h5>
+        <p class="detail__container__sub-block__value">
+          {{ doggie.owner }}
+        </p>
+      </div>
+      <div class="detail__container__sub-block">
+        <h5 class="detail__container__sub-block__label">Description:</h5>
+        <span
+          class="detail__container__sub-block__value detail__container__sub-block__value--shorter"
+        >
+          {{ doggie.description }}
+        </span>
+      </div>
+      <div class="detail__container__sub-block">
+        <h5 class="detail__container__sub-block__label">Traits:</h5>
+        <span class="detail__container__sub-block__value">
+          <el-table
+            :data="doggie.attributes"
+            stripe
+            class="detail__container__sub-block__value__table"
+          >
+            <el-table-column prop="trait_type" label="Type" width="160" />
+            <el-table-column prop="value" label="Name" width="160" />
+          </el-table>
+        </span>
+      </div>
     </div>
   </div>
 </template>
