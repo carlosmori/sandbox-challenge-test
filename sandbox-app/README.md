@@ -95,19 +95,9 @@ In the spirit of proactivity I did make the tests anyway.
 
 You wont be able to run them but check them out!
 
-> Location: `SearchBox.test.js`
+> Location: `test/searchBox.test.js`
 
 Please bear in mind that this is blind code so I dont know if this actually runs but to get the idea.
-
-#### New to Vue3 and Nuxt3 so...
-
-I think it will be wise on my end to let you know that you might encounter some bad practices or some lack of usage of the full Nuxt3 functionalities (such as composables for example) in this challenge.
-
-Learning Vue and Nuxt 3 in one week has overwhelmed me with documentation and information.
-
-Specially since there is a lot of mixed use cases between Options API with Composition API and Nuxt 2 with Nuxt 3 examples.
-
-However I find the outcome application really complete taking into account that this is my first date with Vue3 and Nuxt.
 
 ## PDF Assigment
 

@@ -19,14 +19,14 @@ export const useSandboxStore = defineStore('sandbox', {
           traits: [],
         },
       },
+      // boredApes:{} for example
     },
   }),
   actions: {
-    initializeContract(contractEnum: ContractEnum, rpcEnum: RpcEnum) {
-      const rpc = rpcEnum
+    initializeContract(contract: ContractEnum, rpc: RpcEnum) {
       const config = useRuntimeConfig()
       const w3 = new Web3(config[rpc])
-      switch (contractEnum) {
+      switch (contract) {
         case ContractEnum.DOGGIES:
           this.store.doggies.contract = new w3.eth.Contract(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,6 +45,7 @@ export const useSandboxStore = defineStore('sandbox', {
     },
     async setCurrentDoggie(doggieId: number) {
       const doggieContract = this.store.doggies.contract
+      // todo potential refactor, abstract API into its own module. Abstract response adapters.
       if (doggieContract && doggieId) {
         try {
           // get sandbox api url

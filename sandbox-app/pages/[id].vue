@@ -43,10 +43,23 @@
             width="150"
             @load="onImgLoaded"
           />
-          <div
+          <!-- Abstract skeleton in a separate component -->
+          <el-skeleton
             v-if="imgLoading"
-            class="detail__container__img-wrapper__image__placeholder"
-          ></div>
+            :count="1"
+            animated
+            style="
+              --el-skeleton-circle-size: 160px;
+              --el-skeleton-color: #444444;
+              --el-skeleton-to-color: #9a9a9a;
+            "
+          >
+            <template #template>
+              <div class="skeleton__template">
+                <el-skeleton-item variant="circle" />
+              </div>
+            </template>
+          </el-skeleton>
         </div>
         <div class="detail__container__sub-block">
           <h5 class="detail__container__sub-block__label">Owner:</h5>
@@ -78,11 +91,13 @@
       </div>
     </div>
     <div v-else class="skeleton">
+      <!-- Abstract skeleton in a separate component -->
       <el-skeleton
+        v-if="imgLoading"
         :count="1"
         animated
         style="
-          --el-skeleton-circle-size: 150px;
+          --el-skeleton-circle-size: 160px;
           --el-skeleton-color: #444444;
           --el-skeleton-to-color: #9a9a9a;
         "
@@ -124,28 +139,23 @@
         background-image: url(/gifs/fusion.gif);
         color: transparent;
         background-position: center;
-        &__image,
-        &__image__placeholder {
+
+        &__image {
           border-radius: 50%;
           position: absolute;
           top: 5px;
           left: 5px;
         }
-        &__image__placeholder {
-          height: 150px;
-          width: 150px;
-          background-color: gray;
-          margin: 0 auto;
-        }
       }
       &__title {
         font-size: 1rem;
         margin: 20px 0px;
-        background-image: 'url(/gifs/fusion.gif)';
-        background-clip: 'text';
-        -webkit-background-clip: 'text';
-        color: 'transparent';
-        background-position: 'center';
+        background-image: url(/gifs/fusion.gif);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        background-position: center;
+        filter: sepia(1);
       }
       &__sub-block {
         @include flexContainer(column, center, center);

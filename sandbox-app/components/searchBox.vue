@@ -11,7 +11,9 @@
   const router = useRouter()
   const errors = ref([])
 
-  const redirect = ({ random = false }) => {
+  const redirect = ({ random = false, e }) => {
+    e.preventDefault()
+
     if (random) {
       const minValue = 1
       const maxValue = 10000
@@ -51,6 +53,11 @@
           placeholder="Type Doggie Id"
           :prefix-icon="Search"
           type="number"
+          @keydown.enter="
+            (e) => {
+              redirect({ random: true, e })
+            }
+          "
         />
         <div
           :class="{ invisible: !errors.length }"
@@ -66,7 +73,7 @@
           class="search-box__form__button"
           type="primary"
           bg
-          @click="redirect({})"
+          @click="(e) => redirect({ random: false, e })"
         >
           Search
         </el-button>
@@ -75,7 +82,7 @@
           id="random-button"
           class="search-box__form__button"
           type="success"
-          @click="redirect({ random: true })"
+          @click="(e) => redirect({ random: true, e })"
         >
           Random Doggie
         </el-button>

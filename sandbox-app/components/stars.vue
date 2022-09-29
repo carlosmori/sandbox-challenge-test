@@ -49,7 +49,7 @@
     <div
       v-for="(smallStar, index) in smallStarsArray"
       :key="index"
-      class="stars stars__element"
+      class="stars stars__element stars__element--small"
       :style="{
         top: `${smallStar.top}%`,
         left: `${smallStar.left}%`,
@@ -58,25 +58,25 @@
       }"
     ></div>
     <div
-      v-for="(smallStar, index) in mediumStarsArray"
+      v-for="(mediumStar, index) in mediumStarsArray"
       :key="index"
-      class="stars stars__element"
+      class="stars stars__element stars__element--medium"
       :style="{
-        top: `${smallStar.top}%`,
-        left: `${smallStar.left}%`,
-        width: smallStar.width,
-        height: smallStar.height,
+        top: `${mediumStar.top}%`,
+        left: `${mediumStar.left}%`,
+        width: mediumStar.width,
+        height: mediumStar.height,
       }"
     ></div>
     <div
-      v-for="(smallStar, index) in bigStarsArray"
+      v-for="(bigStar, index) in bigStarsArray"
       :key="index"
-      class="stars stars__element"
+      class="stars stars__element stars__element--big"
       :style="{
-        top: `${smallStar.top}%`,
-        left: `${smallStar.left}%`,
-        width: smallStar.width,
-        height: smallStar.height,
+        top: `${bigStar.top}%`,
+        left: `${bigStar.left}%`,
+        width: bigStar.width,
+        height: bigStar.height,
       }"
     ></div>
   </div>
@@ -84,13 +84,23 @@
 
 <style lang="scss">
   .stars {
-    @include floating-animation-mixin('float');
-    animation: float 3s ease-in-out infinite;
     position: absolute;
     height: 95%;
     width: 95%;
     z-index: 0;
     &__element {
+      &--small {
+        @include floating-animation-mixin('float');
+        animation: float 4s ease-in-out infinite;
+      }
+      &--medium {
+        @include floating-animation-mixin('float');
+        animation: float 8s ease-in-out infinite;
+      }
+      &--big {
+        @include floating-animation-mixin('float');
+        animation: float 12s ease-in-out infinite;
+      }
       background-color: white;
       border-radius: 50%;
       filter: brightness(95%);
