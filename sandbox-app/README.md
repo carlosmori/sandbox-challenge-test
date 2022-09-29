@@ -69,6 +69,33 @@ Navigate to the port in your browser
 
 # Side Notes
 
+### Extra Bonus: Static Site Generation...
+
+I thought... if the data in the blockchain is never going to change.
+
+Would it make sense to statically generate the 10.000 detail pages?
+
+One for each NFT of the collection ?
+
+Just to play around I implemented a Proof of concept on how to pre render all the details routes. (Only with the first 2 Doggies in this case)
+
+Check out the branch:
+
+> `feat/static-site-Generation`
+
+I didnt put much effort in abstraction and clean code practices. But it worked.
+
+Advantages
+
+- No Client side request to the blockchain (Massive performance increase)
+- All the detail pages are going to be scrapped by web crawlers (Massive SEO gain)
+
+Disadvantages
+
+- 10k api request per build. (Super slow build by flooding the server with requests)
+
+If there was a way to avoid re buidling pages that are already cached. This would be the most performant scenario for this web app.
+
 ### No unit testing performed but...
 
 Due to the fact that I needed to support SCSS I have a custom Vite configuration on top of Nuxt to compile those .scss files.
